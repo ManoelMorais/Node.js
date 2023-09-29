@@ -24,6 +24,7 @@ serve.get('/hello', (req, res) => {
         pessoa: `olá ${nome}`,
         messagem: 'tudo bem!?',
         idade: idade,
+        messagem: 'Rota um',
     });
 });
 
@@ -36,6 +37,7 @@ serve.get('/hello/:nome', (req, res) => {
     return res.json({ 
         title: 'hello world',
         pessoa: `olá ${nome}`,
+        messagem: 'Rota dois',
     });
 });
 
