@@ -54,4 +54,37 @@ const findById = async (req, res) => {
   res.send(user)
 };
 
-module.exports = { create,  findAll, findById };
+const update = async (req, res) => {
+  const { name, larftsname, email, password, avatar, background } = req.body;
+
+  if (!name && !larftsname && !email && !password && !avatar && !background) {
+    res.status(400).send({ message: "Submit at Lister one field for update" });
+  }
+
+  const id = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(id)){
+    return res.status(400).send({ message: "Invalid id"})
+  }
+
+  const user = await UserService.findByIdService(id);
+
+  if (!user){
+    return res.status(400).send({ message: "User not found"})
+  }
+
+  await UserService.updadeService(
+    id,
+    name,
+    larftsname,
+    email,
+    password,
+    avatar,
+    background
+  );
+
+  res.send({ message: "User successfully updated!"})
+
+};
+
+module.exports = { create,  findAll, findById, update };
