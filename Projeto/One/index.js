@@ -1,15 +1,12 @@
-const userRoute = require('./src/routers/user.route');
+import userRoute from './src/routers/user.route.js';
+import conectDataBase from './src/database/db.js';
+import express, { json } from 'express';
 
-const conectDataBase = require("./src/database/db");
-
-const express = require('express');
 const serve = express();
-
 const port = 3000;
 
-
-conectDataBase()
-serve.use(express.json());
+conectDataBase();
+serve.use(json());
 serve.use('/user', userRoute);
 
 
