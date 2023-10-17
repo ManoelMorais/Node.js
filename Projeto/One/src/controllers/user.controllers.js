@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { createService, findAllService, updadeService } from "../services/user.service.js";
 
 const create = async (req, res) => {
