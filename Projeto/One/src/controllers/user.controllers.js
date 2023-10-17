@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { createService, findAllService, updadeService } from "../services/user.service.js";
 
 const create = async (req, res) => {
@@ -46,9 +47,8 @@ const findAll = async (req, res) => {
 };
 
 const findById = async (req, res) => {
-  try {
+  try{ 
     const user = req.user;
-
     res.send(user);
   } catch (err) {
     res.status(500).send({ message: err.message });

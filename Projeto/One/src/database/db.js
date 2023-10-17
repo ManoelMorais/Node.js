@@ -1,13 +1,17 @@
 import mongoose from 'mongoose';
 
 const conectDataBase = () => {
+  console.log("Wait connecting to the datavase...")
+
   mongoose
-    .connect(
-      "mongodb+srv://ManoelMorais:Sda1945bm10.@cluster0.xqvnque.mongodb.net/?retryWrites=true&w=majority",
-      { useNewUrlParser: true, useUnifiedTopology: true }
+    .connect( process.env.MONGODB_URI ,
+      { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true, 
+      }
     )
     .then(() => console.log("MongoDB Atlas Connected"))
-    .catch((error) => console.log(error));
+    .catch((err) => console.log(err));
 };
 
 export default conectDataBase;
