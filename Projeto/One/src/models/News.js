@@ -15,7 +15,7 @@ const NewsSchema = new mongoose.Schema({
     },
     createdAT:{
         type: Date,
-         default: Data.now()
+         default: Date.now()
     },
     user:{
         type: mongoose.Schema.Types.ObjectId,

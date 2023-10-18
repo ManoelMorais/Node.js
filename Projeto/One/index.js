@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import userRoute from "./src/routers/user.route.js";
 import authRoute from "./src/routers/auth.route.js";
+import newsRoute from "./src/routers/news.route.js";
 
 dotenv.config();
 
@@ -14,5 +15,6 @@ conectDataBase();
 serve.use(express.json());
 serve.use("/user", userRoute);
 serve.use("/auth", authRoute);
+serve.use("/news", newsRoute);
 
 serve.listen(port, () => console.log(`Server On, porta ${port}`));
