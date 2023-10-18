@@ -10,7 +10,7 @@ const serve = express();
 const port = process.env.PORT || 3000;
 
 conectDataBase();
-serve.use(json());
+serve.use(express.json());
 serve.use('/user', userRoute);
 
 
