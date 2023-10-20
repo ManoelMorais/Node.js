@@ -1,9 +1,9 @@
 import { Router } from "express";
+import { authMiddlewere } from "../middlewares/auth.middlewares.js";
+import { create, getAll} from "../controllers/news.controllers.js";
 const NewsRoute = Router()
 
-import { create, getAll} from "../controllers/news.controllers.js"
-
-NewsRoute.post("/", create)
+NewsRoute.post("/", authMiddlewere, create)
 NewsRoute.get("/", getAll)
 
 export default NewsRoute;

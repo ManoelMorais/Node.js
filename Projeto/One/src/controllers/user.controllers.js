@@ -1,4 +1,4 @@
-import { createService, findAllService, updadeService } from "../services/user.service.js";
+import { createService, findAllService, findByIdService, updadeService } from "../services/user.service.js";
 
 const create = async (req, res) => {
   try {
@@ -47,8 +47,8 @@ const findAll = async (req, res) => {
 
 const findById = async (req, res) => {
   try{ 
-    const user = req.user;
-    res.send(user);
+    const use = req.idUser;
+    res.send(use);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
