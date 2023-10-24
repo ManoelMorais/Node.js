@@ -22,7 +22,6 @@ export const authMiddlewere = (req, res, next) => {
     }
 
     jwt.verify(token, process.env.JWT, async (error, element) => {
-
       if (error) {
         return res.send(401).send({ message: "Token is invalid!" });
       }
@@ -36,8 +35,6 @@ export const authMiddlewere = (req, res, next) => {
       req.userId = user._id;
       next();
     });
-
-    
   } catch (err) {
     res.status(500).send(err.message);
   }

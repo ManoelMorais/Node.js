@@ -1,11 +1,13 @@
 import News from "../models/News.js";
 
-const createServiceNews = (body) => News.create(body);
+export const createServiceNews = (body) => News.create(body);
 
-const findeAllService = (limit, offset) => News.find().sort({_id: -1}).skip(offset).limit(limit).populate("user");
+export const findeAllService = (limit, offset) =>
+  News.find().sort({ _id: -1 }).skip(offset).limit(limit).populate("user");
 
-const conuterNews = () => News.countDocuments();
+export const conuterNews = () => News.countDocuments();
 
-const topNewsService = () => News.findOne().sort({_id: -1}).populate("user")
+export const topNewsService = () =>
+  News.findOne().sort({ _id: -1 }).populate("user");
 
-export { createServiceNews, findeAllService, conuterNews, topNewsService};
+export const findbyidService = (id) => News.findById(id).populate("user");
