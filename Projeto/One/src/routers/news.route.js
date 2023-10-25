@@ -9,15 +9,16 @@ import {
   findbyid,
   searchByTitle,
   byUser,
+  update,
 } from "../controllers/news.controllers.js";
-
 
 NewsRoute.post("/", authMiddlewere, create);
 NewsRoute.get("/", getAll);
 NewsRoute.get("/top", topNews);
 NewsRoute.get("/search", searchByTitle);
-NewsRoute.get("/byUser", authMiddlewere, byUser)
+NewsRoute.get("/byUser", authMiddlewere, byUser);
 
 NewsRoute.get("/:id", authMiddlewere, findbyid);
+NewsRoute.patch("/:id", authMiddlewere, update);
 
 export default NewsRoute;
