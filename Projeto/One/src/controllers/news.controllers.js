@@ -4,6 +4,7 @@ import {
   conuterNews,
   topNewsService,
   findbyidService,
+  searchByTitleService,
 } from "../services/news.service.js";
 
 export const create = async (req, res) => {
@@ -129,8 +130,36 @@ export const findbyid = async (req, res) => {
         useravatar: news.user.avatar,
       },
     });
-    
   } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+export const searchByTitle = async (req, res) => {
+  try {
+    const { title } = req.query;
+    const news = await searchByTitleService(title);
+
+    if (news.lenght === 0) {
+      return res
+        .status(400)
+        .send({ message: "There are no news with this title" });
+    }
+
+    return res.send({
+      results: news.map((newsItem) => ({
+        id: newsItem._id,
+        title: newsItem.title,
+        text: newsItem.text,
+        banner: newsItem.banner,
+        likes: newsItem.likes,
+        commets: newsItem.commets,
+        name: newsItem.user.name,
+        larftsname: newsItem.user.larftsname,
+        useravatar: newsItem.user.avatar,
+      })),
+    });
+  } catch (error) {
     res.status(500).send({ message: err.message });
   }
 };
