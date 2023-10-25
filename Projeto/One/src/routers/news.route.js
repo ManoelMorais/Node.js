@@ -8,6 +8,7 @@ import {
   topNews,
   findbyid,
   searchByTitle,
+  byUser,
 } from "../controllers/news.controllers.js";
 
 
@@ -15,6 +16,7 @@ NewsRoute.post("/", authMiddlewere, create);
 NewsRoute.get("/", getAll);
 NewsRoute.get("/top", topNews);
 NewsRoute.get("/search", searchByTitle);
+NewsRoute.get("/byUser", authMiddlewere, byUser)
 
 NewsRoute.get("/:id", authMiddlewere, findbyid);
 
