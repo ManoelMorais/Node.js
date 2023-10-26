@@ -7,6 +7,9 @@ import {
   searchByTitleService,
   byUserService,
   updateService,
+  eraseService,
+  likeService,
+  deletelikeService,
 } from "../services/news.service.js";
 
 export const create = async (req, res) => {
@@ -211,6 +214,43 @@ export const update = async (req, res) => {
     await updateService(id, title, text, banner);
 
     return res.send({ message: "Post succesfully update!" });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+};
+
+export const erase = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const news = await findbyidService(id);
+
+    if (news.user.id != req.userId) {
+      return res.status(400).send({
+        message: "You didn't update this post",
+      });
+    }
+
+    await eraseService(id);
+
+    return res.send({ message: "News deleted successfully" });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+};
+
+export const likeNews = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userID = req.userId;
+    const newsLiked = await likeService(id, userID)
+
+    if(!newsLiked){
+      await deletelikeService(id, userID);
+      return res.status(200).send({ message: "Like successfullt removed"})
+    };
+
+    res.send({ message: "Like done successfully"})
   } catch (error) {
     return res.status(500).send({ message: error.message });
   }

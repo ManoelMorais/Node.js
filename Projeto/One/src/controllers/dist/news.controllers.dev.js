@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.update = exports.byUser = exports.searchByTitle = exports.findbyid = exports.topNews = exports.getAll = exports.create = void 0;
+exports.likeNews = exports.erase = exports.update = exports.byUser = exports.searchByTitle = exports.findbyid = exports.topNews = exports.getAll = exports.create = void 0;
 
 var _newsService = require("../services/news.service.js");
 
@@ -397,3 +397,105 @@ var update = function update(req, res) {
 };
 
 exports.update = update;
+
+var erase = function erase(req, res) {
+  var id, news;
+  return regeneratorRuntime.async(function erase$(_context8) {
+    while (1) {
+      switch (_context8.prev = _context8.next) {
+        case 0:
+          _context8.prev = 0;
+          id = req.params.id;
+          _context8.next = 4;
+          return regeneratorRuntime.awrap((0, _newsService.findbyidService)(id));
+
+        case 4:
+          news = _context8.sent;
+
+          if (!(news.user.id != req.userId)) {
+            _context8.next = 7;
+            break;
+          }
+
+          return _context8.abrupt("return", res.status(400).send({
+            message: "You didn't update this post"
+          }));
+
+        case 7:
+          _context8.next = 9;
+          return regeneratorRuntime.awrap((0, _newsService.eraseService)(id));
+
+        case 9:
+          return _context8.abrupt("return", res.send({
+            message: "News deleted successfully"
+          }));
+
+        case 12:
+          _context8.prev = 12;
+          _context8.t0 = _context8["catch"](0);
+          return _context8.abrupt("return", res.status(500).send({
+            message: _context8.t0.message
+          }));
+
+        case 15:
+        case "end":
+          return _context8.stop();
+      }
+    }
+  }, null, null, [[0, 12]]);
+};
+
+exports.erase = erase;
+
+var likeNews = function likeNews(req, res) {
+  var id, userID, newsLiked;
+  return regeneratorRuntime.async(function likeNews$(_context9) {
+    while (1) {
+      switch (_context9.prev = _context9.next) {
+        case 0:
+          _context9.prev = 0;
+          id = req.params.id;
+          userID = req.userId;
+          _context9.next = 5;
+          return regeneratorRuntime.awrap((0, _newsService.likeService)(id, userID));
+
+        case 5:
+          newsLiked = _context9.sent;
+
+          if (newsLiked) {
+            _context9.next = 10;
+            break;
+          }
+
+          _context9.next = 9;
+          return regeneratorRuntime.awrap((0, _newsService.deletelikeService)(id, userID));
+
+        case 9:
+          return _context9.abrupt("return", res.status(200).send({
+            message: "Like successfullt removed"
+          }));
+
+        case 10:
+          ;
+          res.send({
+            message: "Like done successfully"
+          });
+          _context9.next = 17;
+          break;
+
+        case 14:
+          _context9.prev = 14;
+          _context9.t0 = _context9["catch"](0);
+          return _context9.abrupt("return", res.status(500).send({
+            message: _context9.t0.message
+          }));
+
+        case 17:
+        case "end":
+          return _context9.stop();
+      }
+    }
+  }, null, null, [[0, 14]]);
+};
+
+exports.likeNews = likeNews;

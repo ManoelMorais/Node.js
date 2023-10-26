@@ -10,6 +10,8 @@ import {
   searchByTitle,
   byUser,
   update,
+  erase,
+  likeNews,
 } from "../controllers/news.controllers.js";
 
 NewsRoute.post("/", authMiddlewere, create);
@@ -20,5 +22,7 @@ NewsRoute.get("/byUser", authMiddlewere, byUser);
 
 NewsRoute.get("/:id", authMiddlewere, findbyid);
 NewsRoute.patch("/:id", authMiddlewere, update);
+NewsRoute.delete("/:id", authMiddlewere, erase);
+NewsRoute.patch("/like/:id", authMiddlewere, likeNews);
 
 export default NewsRoute;
