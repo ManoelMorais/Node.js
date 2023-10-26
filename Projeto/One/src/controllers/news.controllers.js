@@ -9,7 +9,6 @@ import {
   updateService,
 } from "../services/news.service.js";
 
-
 export const create = async (req, res) => {
   try {
     const { title, text, banner } = req.body;
@@ -185,9 +184,8 @@ export const byUser = async (req, res) => {
         useravatar: newsItem.user.avatar,
       })),
     });
-    
   } catch (error) {
-    res.status(500).send({ message: error.message})
+    res.status(500).send({ message: error.message });
   }
 };
 
@@ -196,7 +194,7 @@ export const update = async (req, res) => {
     const { title, text, banner } = req.body;
     const { id } = req.params;
 
-    if( !title && !text && !banner ){
+    if (!title && !text && !banner) {
       res.status(400).send({
         message: "Submit at last one field to update the post",
       });
@@ -204,16 +202,16 @@ export const update = async (req, res) => {
 
     const news = await findbyidService(id);
 
-    if(news.user._id != req.userId){
-      res.status(400).send({
+    if (news.user.id != req.userId) {
+      return res.status(400).send({
         message: "You didn't update this post",
       });
     }
 
-    await updateService(id, title, text, banner)
+    await updateService(id, title, text, banner);
 
-    return res.send({ message: "Post succesfully update!"});
+    return res.send({ message: "Post succesfully update!" });
   } catch (error) {
-    return res.status(500).send({ message: error.message })
+    return res.status(500).send({ message: error.message });
   }
 };
