@@ -12,6 +12,7 @@ import {
   update,
   erase,
   likeNews,
+  AddComments,
 } from "../controllers/news.controllers.js";
 
 NewsRoute.post("/", authMiddlewere, create);
@@ -21,8 +22,9 @@ NewsRoute.get("/search", searchByTitle);
 NewsRoute.get("/byUser", authMiddlewere, byUser);
 
 NewsRoute.get("/:id", authMiddlewere, findbyid);
-NewsRoute.patch("/:id", authMiddlewere, update);
 NewsRoute.delete("/:id", authMiddlewere, erase);
+NewsRoute.patch("/:id", authMiddlewere, update);
 NewsRoute.patch("/like/:id", authMiddlewere, likeNews);
+NewsRoute.patch("/comment/:id", authMiddlewere, AddComments)
 
 export default NewsRoute;

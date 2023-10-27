@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.likeNews = exports.erase = exports.update = exports.byUser = exports.searchByTitle = exports.findbyid = exports.topNews = exports.getAll = exports.create = void 0;
+exports.AddComments = exports.likeNews = exports.erase = exports.update = exports.byUser = exports.searchByTitle = exports.findbyid = exports.topNews = exports.getAll = exports.create = void 0;
 
 var _newsService = require("../services/news.service.js");
 
@@ -476,26 +476,73 @@ var likeNews = function likeNews(req, res) {
           }));
 
         case 10:
-          ;
           res.send({
             message: "Like done successfully"
           });
-          _context9.next = 17;
+          _context9.next = 16;
           break;
 
-        case 14:
-          _context9.prev = 14;
+        case 13:
+          _context9.prev = 13;
           _context9.t0 = _context9["catch"](0);
           return _context9.abrupt("return", res.status(500).send({
             message: _context9.t0.message
           }));
 
-        case 17:
+        case 16:
         case "end":
           return _context9.stop();
       }
     }
-  }, null, null, [[0, 14]]);
+  }, null, null, [[0, 13]]);
 };
 
 exports.likeNews = likeNews;
+
+var AddComments = function AddComments(req, res) {
+  var id, userId, comment;
+  return regeneratorRuntime.async(function AddComments$(_context10) {
+    while (1) {
+      switch (_context10.prev = _context10.next) {
+        case 0:
+          _context10.prev = 0;
+          id = req.params.id;
+          userId = req.userId;
+          comment = req.body;
+
+          if (comment) {
+            _context10.next = 6;
+            break;
+          }
+
+          return _context10.abrupt("return", res.status(400).send({
+            message: "Write a message to comment"
+          }));
+
+        case 6:
+          _context10.next = 8;
+          return regeneratorRuntime.awrap((0, _newsService.AddCommentsService)(id, comment, userId));
+
+        case 8:
+          res.send({
+            message: "Comment successfully compledet!"
+          });
+          _context10.next = 14;
+          break;
+
+        case 11:
+          _context10.prev = 11;
+          _context10.t0 = _context10["catch"](0);
+          return _context10.abrupt("return", res.status(500).send({
+            message: _context10.t0.message
+          }));
+
+        case 14:
+        case "end":
+          return _context10.stop();
+      }
+    }
+  }, null, null, [[0, 11]]);
+};
+
+exports.AddComments = AddComments;
