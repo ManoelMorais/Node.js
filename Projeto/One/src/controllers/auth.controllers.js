@@ -1,4 +1,4 @@
-import bcryot from "bcrypt";
+import bcrypt from "bcrypt";
 import { loginService, generateToken } from "../services/auth.service.js";
 
 const login = async (req, res) => {
@@ -11,7 +11,7 @@ const login = async (req, res) => {
       return res.status(404).send({ message: "User or Password not found" });
     }
 
-    const passwordIsValid = bcryot.compareSync(password, user.password);
+    const passwordIsValid = bcrypt.compareSync(password, user.password);
 
     if (!passwordIsValid) {
       return res.status(400).send({ message: "User or Password not found" });
