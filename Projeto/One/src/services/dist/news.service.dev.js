@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.AddCommentsService = exports.deletelikeService = exports.likeService = exports.eraseService = exports.updateService = exports.byUserService = exports.searchByTitleService = exports.findbyidService = exports.topNewsService = exports.conuterNews = exports.findeAllService = exports.createServiceNews = void 0;
+exports.deleteCommentsService = exports.AddCommentsService = exports.deletelikeService = exports.likeService = exports.eraseService = exports.updateService = exports.byUserService = exports.searchByTitleService = exports.findbyidService = exports.topNewsService = exports.conuterNews = exports.findeAllService = exports.createServiceNews = void 0;
 
 var _News = _interopRequireDefault(require("../models/News.js"));
 
@@ -137,3 +137,18 @@ var AddCommentsService = function AddCommentsService(idNews, comment, userId) {
 };
 
 exports.AddCommentsService = AddCommentsService;
+
+var deleteCommentsService = function deleteCommentsService(idNews, idComment, userId) {
+  return _News["default"].findOneAndUpdate({
+    _id: idNews
+  }, {
+    $pull: {
+      comment: {
+        idComment: idComment,
+        userId: userId
+      }
+    }
+  });
+};
+
+exports.deleteCommentsService = deleteCommentsService;

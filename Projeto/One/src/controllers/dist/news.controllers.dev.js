@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.AddComments = exports.likeNews = exports.erase = exports.update = exports.byUser = exports.searchByTitle = exports.findbyid = exports.topNews = exports.getAll = exports.create = void 0;
+exports.deleteComments = exports.AddComments = exports.likeNews = exports.erase = exports.update = exports.byUser = exports.searchByTitle = exports.findbyid = exports.topNews = exports.getAll = exports.create = void 0;
 
 var _newsService = require("../services/news.service.js");
 
@@ -500,7 +500,7 @@ var likeNews = function likeNews(req, res) {
 exports.likeNews = likeNews;
 
 var AddComments = function AddComments(req, res) {
-  var id, userId, comment;
+  var id, userId, comment, commentDeleted, commentsFinder;
   return regeneratorRuntime.async(function AddComments$(_context10) {
     while (1) {
       switch (_context10.prev = _context10.next) {
@@ -508,7 +508,7 @@ var AddComments = function AddComments(req, res) {
           _context10.prev = 0;
           id = req.params.id;
           userId = req.userId;
-          comment = req.body;
+          comment = req.body.comment;
 
           if (comment) {
             _context10.next = 6;
@@ -516,7 +516,7 @@ var AddComments = function AddComments(req, res) {
           }
 
           return _context10.abrupt("return", res.status(400).send({
-            message: "Write a message to comment"
+            message: "pq Deus"
           }));
 
         case 6:
@@ -524,25 +524,88 @@ var AddComments = function AddComments(req, res) {
           return regeneratorRuntime.awrap((0, _newsService.AddCommentsService)(id, comment, userId));
 
         case 8:
+          commentDeleted = _context10.sent;
+          commentsFinder = commentDeleted.comment.find(function (comment) {
+            return comment.idComment === idComment;
+          });
+
+          if (commentsFinder) {
+            _context10.next = 12;
+            break;
+          }
+
+          return _context10.abrupt("return", res.status(400).send({
+            message: "Comment not found"
+          }));
+
+        case 12:
+          if (!(commentsFinder.userId !== userId)) {
+            _context10.next = 14;
+            break;
+          }
+
+          return _context10.abrupt("return", res.status(400).send({
+            message: "You can't delete this comment"
+          }));
+
+        case 14:
           res.send({
             message: "Comment successfully compledet!"
           });
-          _context10.next = 14;
+          _context10.next = 20;
           break;
 
-        case 11:
-          _context10.prev = 11;
+        case 17:
+          _context10.prev = 17;
           _context10.t0 = _context10["catch"](0);
           return _context10.abrupt("return", res.status(500).send({
             message: _context10.t0.message
           }));
 
-        case 14:
+        case 20:
         case "end":
           return _context10.stop();
       }
     }
-  }, null, null, [[0, 11]]);
+  }, null, null, [[0, 17]]);
 };
 
 exports.AddComments = AddComments;
+
+var deleteComments = function deleteComments(req, res) {
+  var _req$params, idNews, _idComment, userId;
+
+  return regeneratorRuntime.async(function deleteComments$(_context11) {
+    while (1) {
+      switch (_context11.prev = _context11.next) {
+        case 0:
+          _context11.prev = 0;
+          _req$params = req.params, idNews = _req$params.idNews, _idComment = _req$params.idComment;
+          userId = req.userId;
+          _context11.next = 5;
+          return regeneratorRuntime.awrap((0, _newsService.deleteCommentsService)(idNews, _idComment, userId));
+
+        case 5:
+          // console.log(commentDeleted)
+          res.send({
+            message: "Comment successfilly remove!"
+          });
+          _context11.next = 11;
+          break;
+
+        case 8:
+          _context11.prev = 8;
+          _context11.t0 = _context11["catch"](0);
+          return _context11.abrupt("return", res.status(500).send({
+            message: _context11.t0.message
+          }));
+
+        case 11:
+        case "end":
+          return _context11.stop();
+      }
+    }
+  }, null, null, [[0, 8]]);
+};
+
+exports.deleteComments = deleteComments;

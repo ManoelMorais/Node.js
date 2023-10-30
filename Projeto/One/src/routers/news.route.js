@@ -13,6 +13,7 @@ import {
   erase,
   likeNews,
   AddComments,
+  deleteComments,
 } from "../controllers/news.controllers.js";
 
 NewsRoute.post("/", authMiddlewere, create);
@@ -26,5 +27,6 @@ NewsRoute.delete("/:id", authMiddlewere, erase);
 NewsRoute.patch("/:id", authMiddlewere, update);
 NewsRoute.patch("/like/:id", authMiddlewere, likeNews);
 NewsRoute.patch("/comment/:id", authMiddlewere, AddComments)
+NewsRoute.patch("/comment/:idNews/:idComment", authMiddlewere, deleteComments)
 
 export default NewsRoute;

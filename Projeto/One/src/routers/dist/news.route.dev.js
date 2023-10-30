@@ -22,5 +22,6 @@ NewsRoute["delete"]("/:id", _authMiddlewares.authMiddlewere, _newsControllers.er
 NewsRoute.patch("/:id", _authMiddlewares.authMiddlewere, _newsControllers.update);
 NewsRoute.patch("/like/:id", _authMiddlewares.authMiddlewere, _newsControllers.likeNews);
 NewsRoute.patch("/comment/:id", _authMiddlewares.authMiddlewere, _newsControllers.AddComments);
+NewsRoute.patch("/comment/:idNews/:idComment", _authMiddlewares.authMiddlewere, _newsControllers.deleteComments);
 var _default = NewsRoute;
 exports["default"] = _default;
