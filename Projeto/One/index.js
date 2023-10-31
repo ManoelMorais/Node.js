@@ -10,7 +10,7 @@ import swaggerRoute from "./src/routers/swagger.route.js";
 dotenv.config();
 
 const serve = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 conectDataBase();
 serve.use(express.json());
