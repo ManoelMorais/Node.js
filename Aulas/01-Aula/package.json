@@ -1,0 +1,18 @@
+{
+  "name": "01-aula",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+      "dev": "npx tsx watch ./src/serve.ts",
+      "start": "node ./dist/serve.js",
+      "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.8.10",
+    "tsx": "^3.14.0",
+    "typescript": "^5.2.2"
+  }
+}
