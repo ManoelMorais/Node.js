@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 _dotenv["default"].config();
 
 var serve = (0, _express["default"])();
-var port = process.env.PORT || 3001;
+var port = process.env.PORT || 3020;
 (0, _db["default"])();
 serve.use(_express["default"].json());
 serve.use("/user", _userRoute["default"]);

@@ -9,10 +9,10 @@
         "version": "1.0.0"
     },
     "servers": [{
-        "url": "http://localhost:3000",
+        "url": "http://localhost:3020",
         "description": "Local Serve"
     }],
-    "path": {
+    "paths": {
         "/user/create": {
             "post": {
                 "summary": "Create a new user",
@@ -27,12 +27,11 @@
                             "examples": {
                                 "Users": {
                                     "value": {
-                                        "name": "Cacau Lima",
-                                        "username": "cacode",
-                                        "email": "clima@gmail.com",
+                                        "name": "Full Name",
+                                        "username": "You Nick",
+                                        "email": "g-mail@gmail.com",
                                         "password": "12345",
-                                        "avatar": "https://i.imgur.com/Ry1cb5M.png",
-                                        "background": "https://images.wallpapersden.com/image/download/triangle-8k-blue-pattern_bGZlbmiUmZqaraWkpJRmbmdlrWZlbWU.jpg"
+                                        "avatar": "https://i.imgur.com/Ry1cb5M.png"
                                     }
                                 }
                             }
@@ -88,7 +87,7 @@
                 }
             }
         },
-        "/user/findById/{id}/": {
+        "/user/{id}": {
             "get": {
                 "summary": "Search user by id",
                 "description": "Route responsible for searching for user by id",
@@ -208,7 +207,7 @@
                 }
             }
         },
-        "/news/creat": {
+        "/posts/create": {
             "post": {
                 "summary": "Create a new post",
                 "description": "Route responsible for creating a new Post",
@@ -258,7 +257,7 @@
                 }
             }
         },
-        "/news": {
+        "/posts": {
             "get": {
                 "summary": "Search all posts",
                 "description": "Route responsible for fetching all posts",
@@ -275,6 +274,9 @@
                     }
                 ],
                 "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
                     "400": {
                         "description": "Not Found"
                     },
@@ -294,72 +296,24 @@
                 }
             }
         },
-        "/news/top": {
-            "get": {
-                "summary": "Search top post",
-                "description": "Route responsible for fetching top post",
-                "tags": ["Post"],
-                "responses": {
-                    "400": {
-                        "description": "Not Found"
-                    },
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schemma": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Post"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/news/search": {
+        "/posts/search": {
             "get": {
                 "summary": "Search posts by title",
                 "description": "Route responsible for fetching the posts that match the title sent via query params",
                 "tags": ["Post"],
                 "parameters": [{
                     "in": "query",
-                    "name": "title",
+                    "name": "message",
                     "type": "string",
                     "required": true
                 }],
                 "responses": {
-                    "400": {
-                        "description": "Not Found"
-                    },
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Post"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/news/byUser": {
-            "get": {
-                "summary": "Search posts by use id",
-                "description": "Route responsible for fetching posts by use id",
-                "tags": ["Post"],
-                "responses": {
-                    "400": {
-                        "description": "Not Found"
-                    },
                     "401": {
                         "description": "Unauthorized"
                     },
+                    "400": {
+                        "description": "Not Found"
+                    },
                     "200": {
                         "description": "OK",
                         "content": {
@@ -376,7 +330,7 @@
                 }
             }
         },
-        "/news/ByPost": {
+        "/posts/{id}": {
             "patch": {
                 "summary": "Search post by id",
                 "description": "Route responsible for fetching post by id",
@@ -412,35 +366,7 @@
                 }
             }
         },
-        "/news/{id}/": {
-            "get": {
-                "summary": "Search posts by use id",
-                "description": "Route responsible for fetching posts by use id",
-                "tags": ["Post"],
-                "responses": {
-                    "400": {
-                        "description": "Not Found"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Post"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/news/update/{id}": {
+        "/posts/upadate/{id}": {
             "patch": {
                 "summary": "Update a post",
                 "description": "Route responsible for updating a Post",
@@ -494,7 +420,7 @@
                 }
             }
         },
-        "/news/delet/{id}": {
+        "/posts/delete/{id}": {
             "delete": {
                 "summary": "Delete a post",
                 "description": "Route responsible for deleting a Post",
@@ -522,7 +448,7 @@
                 }
             }
         },
-        "/news/like/{id}": {
+        "/posts/{id}/like": {
             "patch": {
                 "summary": "Like a post",
                 "description": "Route responsible for liking a post",
@@ -550,7 +476,7 @@
                 }
             }
         },
-        "/news/comment/{id}": {
+        "/posts/{id}/comment": {
             "patch": {
                 "summary": "Comment on a post",
                 "description": "Route responsible for commenting on a post",
