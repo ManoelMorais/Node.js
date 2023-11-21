@@ -2,9 +2,9 @@
 /* eslint-disable import/order */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
-import { IAnswers } from "src/interface/answers.interface";
-import { EchoicesBoilerPlate } from "src/enum/choices-boilerplate.enum";
-import { EGitName } from "src/enum/git-name.enum";
+import { IAnswers } from "interface/answers.interface";
+import { EchoicesBoilerPlate } from "enum/choices-boilerplate.enum";
+import { EGitName } from "enum/git-name.enum";
 import shelljs from "shelljs";
 import path from "node:path";
 import fs from "node:fs";
